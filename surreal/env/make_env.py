@@ -50,6 +50,7 @@ def make_env(env_config, mode=None):
     if mode == 'eval' and 'eval_mode' in env_config:
         for k, v in env_config.eval_mode.items():
             env_config[k] = v
+    env_config['render'] = False
     if env_category == 'gym':
         env, env_config = make_gym(env_name, env_config)
     elif env_category == 'robosuite':
@@ -72,6 +73,7 @@ def make_gym(env_name, env_config):
 
 def make_robosuite(env_name, env_config):
     import robosuite
+    from robosuite.wrappers import IKWrapper
 
     env = robosuite.make(
         env_name,
@@ -89,6 +91,7 @@ def make_robosuite(env_name, env_config):
         reward_shaping=True,
         # demo_config=env_config.demonstration,
     )
+    env = IKWrapper(env)
     env = RobosuiteWrapper(env, env_config)
     env = FilterWrapper(env, env_config)
     env = ObservationConcatenationWrapper(env)

@@ -142,7 +142,7 @@ class PPOAgent(Agent):
                 action_choice = self.pd.sample(action_pd)
             else:
                 action_choice = self.pd.maxprob(action_pd)
-            np.clip(action_choice, -1, 1, out=action_choice)
+            # np.clip(action_choice, -1, 1, out=action_choice)
 
             action_choice = action_choice.reshape((-1,))
             action_pd     = action_pd.reshape((-1,))

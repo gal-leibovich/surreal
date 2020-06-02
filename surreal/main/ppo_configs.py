@@ -97,15 +97,15 @@ PPO_DEFAULT_LEARNER_CONFIG.extend(BASE_LEARNER_CONFIG)
 PPO_DEFAULT_ENV_CONFIG = Config({
     'env_name': '',
     'action_repeat': 1,
-    'pixel_input': False,
+    'pixel_input': True,
     'use_grayscale': False,
     'use_depth': False,
     'frame_stacks': 1,
     'sleep_time': 0,
     'video': {
-        'record_video': False,
-        'save_folder': None,
-        'max_videos': 500,
+        'record_video': True,
+        'save_folder': "/home/cvds_lab/repos/robosuite/video",
+        'max_videos': 500000,
         'record_every': 5,
     },
     'observation': {
@@ -232,6 +232,9 @@ def main():
 
 
 if __name__ == '__main__':
+    # DEBUG DEBUG DEBUG: give yourself some time to attach to the agent process
+    # import time
+    # time.sleep(10)
     main()
 
 
