@@ -97,20 +97,20 @@ PPO_DEFAULT_LEARNER_CONFIG.extend(BASE_LEARNER_CONFIG)
 PPO_DEFAULT_ENV_CONFIG = Config({
     'env_name': '',
     'action_repeat': 1,
-    'pixel_input': False,
+    'pixel_input': True,
     'use_grayscale': False,
     'use_depth': False,
     'frame_stacks': 1,
     'sleep_time': 0,
     'video': {
-        'record_video': False,
-        'save_folder': None,
-        'max_videos': 500,
+        'record_video': True,
+        'save_folder': "/home/cvds_lab/repos/robosuite/video",
+        'max_videos': 500000,
         'record_every': 5,
     },
     'observation': {
         'pixel': ['camera0'],
-        'low_dim':['robot-state','object-state'],
+        'low_dim':['robot0_robot-state','object-state'],
     },
     'eval_mode': {
         'demonstration': None
@@ -228,6 +228,8 @@ class PPOLauncher(SurrealDefaultLauncher):
 
 
 def main():
+    # import time
+    # time.sleep(10)
     PPOLauncher().main()
 
 

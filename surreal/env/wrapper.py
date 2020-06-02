@@ -226,7 +226,7 @@ class RobosuiteWrapper(Wrapper):
         pixel_modality = collections.OrderedDict()
         flat_modality = collections.OrderedDict()
         for key in obs:
-            if key == 'image' and 'camera0' in self._input_list['pixel']:
+            if key == 'agentview_image' and 'camera0' in self._input_list['pixel']:
                 pixel_modality['camera0'] = obs[key]
             elif key in self._input_list['pixel']:
                 pixel_modality[key] = obs[key]
@@ -282,7 +282,7 @@ class RobosuiteWrapper(Wrapper):
         return self._add_modality(spec, verbose=True)
 
     def action_spec(self): # we haven't finalized the action spec of mujocomanip
-        return {'dim': (self.env.dof,), 'type': 'continuous'}
+        return {'dim': (self.env.action_dim,), 'type': 'continuous'}
 
     def _render(self, *args, **kwargs):
         return self.env.sim.render(camera_name='frontview',

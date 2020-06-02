@@ -50,6 +50,7 @@ def make_env(env_config, mode=None):
     if mode == 'eval' and 'eval_mode' in env_config:
         for k, v in env_config.eval_mode.items():
             env_config[k] = v
+    env_config['render'] = False
     if env_category == 'gym':
         env, env_config = make_gym(env_name, env_config)
     elif env_category == 'robosuite':
@@ -75,17 +76,18 @@ def make_robosuite(env_name, env_config):
 
     env = robosuite.make(
         env_name,
+        robots='Panda',  # TODO - this is hard-coded, consider fixing
         has_renderer=env_config.render,
         ignore_done=True,
         use_camera_obs=env_config.pixel_input,
         has_offscreen_renderer=env_config.pixel_input,
-        camera_height=84,
-        camera_width=84,
+        camera_heights=84,
+        camera_widths=84,
         render_collision_mesh=False,
         render_visual_mesh=True,
-        camera_name='agentview',
+        camera_names='agentview',
         use_object_obs=(not env_config.pixel_input),
-        camera_depth=env_config.use_depth,
+        camera_depths=env_config.use_depth,
         reward_shaping=True,
         # demo_config=env_config.demonstration,
     )
