@@ -103,9 +103,9 @@ PPO_DEFAULT_ENV_CONFIG = Config({
     'frame_stacks': 1,
     'sleep_time': 0,
     'video': {
-        'record_video': True,
-        'save_folder': "/home/cvds_lab/repos/robosuite/video",
-        'max_videos': 500000,
+        'record_video': False,
+        'save_folder': None,
+        'max_videos': 500,
         'record_every': 5,
     },
     'observation': {
