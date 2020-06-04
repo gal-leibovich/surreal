@@ -2,6 +2,10 @@ import os
 import gc
 from surreal.env.video_env import VideoWrapper
 import surreal.utils as U
+
+from robosuite.controllers import load_controller_config
+from robosuite.wrappers.domain_randomization_wrapper import DomainRandomizationWrapper
+
 from .wrapper import (
     GymAdapter,
     FrameStackWrapper,
@@ -89,11 +93,14 @@ def make_robosuite(env_name, env_config):
         use_object_obs=(not env_config.pixel_input),
         camera_depths=env_config.use_depth,
         reward_shaping=True,
+        controller_configs=load_controller_config(default_controller='IK_POSE')
         # demo_config=env_config.demonstration,
     )
+    env = DomainRandomizationWrapper(env)
     env = RobosuiteWrapper(env, env_config)
     env = FilterWrapper(env, env_config)
     env = ObservationConcatenationWrapper(env)
+
     if env_config.pixel_input:
         env = TransposeWrapper(env)
         if env_config.use_grayscale:
