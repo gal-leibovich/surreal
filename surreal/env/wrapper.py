@@ -226,7 +226,8 @@ class RobosuiteWrapper(Wrapper):
         pixel_modality = collections.OrderedDict()
         flat_modality = collections.OrderedDict()
         for key in obs:
-            if key == 'agentview_image' and 'camera0' in self._input_list['pixel']:
+            if (key == 'agentview_image' or key == 'labview_image') and \
+                    'camera0' in self._input_list['pixel']:
                 pixel_modality['camera0'] = obs[key]
             elif key in self._input_list['pixel']:
                 pixel_modality[key] = obs[key]
