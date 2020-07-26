@@ -80,7 +80,7 @@ def make_robosuite(env_name, env_config):
 
     env = robosuite.make(
         env_name,
-        robots='Panda',  # TODO - this is hard-coded, consider fixing
+        robots='PandaLab',  # TODO - this is hard-coded, consider fixing
         has_renderer=env_config.render,
         ignore_done=True,
         use_camera_obs=env_config.pixel_input,
@@ -94,10 +94,11 @@ def make_robosuite(env_name, env_config):
         use_object_obs=(not env_config.pixel_input),
         camera_depths=env_config.use_depth,
         reward_shaping=True,
-        controller_configs=load_controller_config(default_controller='IK_POSE')
+        controller_configs=load_controller_config(default_controller='IK_POSE_POS'),
+        control_freq=1
         # demo_config=env_config.demonstration,
     )
-    env = DomainRandomizationWrapper(env)
+    #env = DomainRandomizationWrapper(env)
     env = RobosuiteWrapper(env, env_config)
     env = FilterWrapper(env, env_config)
     env = ObservationConcatenationWrapper(env)
